@@ -1,0 +1,153 @@
+
+@import "tailwindcss";
+@import "react-day-picker/dist/style.css";
+
+@theme {
+  /* Primary Brand — Forest Green */
+  --color-brand-50: #eef5f2;
+  --color-brand-100: #d8e8e0;
+  --color-brand-200: #b6d3c3;
+  --color-brand-300: #8bb7a0;
+  --color-brand-400: #5e967b;
+  --color-brand-500: #124734;
+  --color-brand-600: #103f2f;
+  --color-brand-700: #0d3528;
+  --color-brand-800: #092a20;
+  --color-brand-900: #061d16;
+
+  /* Neutral / Charcoal */
+  --color-ink-50: #f8f8f8;
+  --color-ink-100: #f1f1f1;
+  --color-ink-200: #e4e4e4;
+  --color-ink-300: #cfcfcf;
+  --color-ink-400: #9a9a9a;
+  --color-ink-500: #6d6d6d;
+  --color-ink-600: #4d4d4d;
+  --color-ink-700: #333333;
+  --color-ink-800: #1a1a1a;
+  --color-ink-900: #111111;
+
+  /* Accent — Warm Gold */
+  --color-accent-50: #fff9eb;
+  --color-accent-100: #fff1c9;
+  --color-accent-200: #ffe79c;
+  --color-accent-300: #f8d96b;
+  --color-accent-400: #ebc94a;
+  --color-accent-500: #d4af37;
+  --color-accent-600: #b38f22;
+  --color-accent-700: #8f7118;
+
+  /* Supporting Pane Colors */
+  --color-pane-red: #d72638;
+  --color-pane-green: #3cb371;
+  --color-pane-black: #1a1a1a;
+  --color-pane-white: #ffffff;
+
+  /* Backgrounds */
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8f8f8;
+
+  /* Status Colors */
+  --color-success: #3cb371;
+  --color-warning: #d4af37;
+  --color-danger: #d72638;
+}
+body {
+  background: var(--color-ink-50);
+  color: var(--color-ink-900);
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a,
+button,
+summary,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+[role="button"] {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled {
+  cursor: not-allowed;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hero-daypicker .rdp-months {
+  justify-content: center;
+}
+
+.hero-daypicker .rdp-day_disabled {
+  color: var(--color-ink-300);
+  text-decoration: line-through;
+  opacity: 0.75;
+}
+
+.hero-daypicker .rdp-day:focus-visible {
+  outline: 2px solid var(--color-brand-400);
+  outline-offset: 2px;
+}
+
+.compact-uploadthing {
+  min-height: 150px !important;
+}
+
+.compact-uploadthing > div {
+  min-height: 150px !important;
+  height: 150px !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+
+.compact-uploadthing [data-ut-element="dropzone"] {
+  min-height: 150px !important;
+  height: 150px !important;
+  justify-content: center !important;
+  gap: 0.35rem !important;
+}
+
+.compact-uploadthing svg {
+  width: 42px !important;
+  height: 42px !important;
+}
+
+.compact-uploadthing button {
+  margin-top: 0.2rem !important;
+}
+
+@keyframes hostListingCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.995);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.host-listing-card {
+  opacity: 0;
+  animation: hostListingCardIn 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .host-listing-card {
+    animation: none;
+    opacity: 1;
+  }
+}
