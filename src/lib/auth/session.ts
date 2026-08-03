@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
-import { authOptions } from "@/auth/config";
+import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/prisma";
 export async function getCurrentUser() {
     let session;
