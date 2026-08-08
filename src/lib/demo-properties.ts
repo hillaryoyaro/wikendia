@@ -1,5 +1,5 @@
+import { US_LISTINGS_SEED } from "@/data/seed/listings";
 import type { DemoProperty } from "@/types/demo-property";
-import { US_LISTINGS_SEED } from "@/data/us-listings-seed";
 export type { DemoProperty } from "@/types/demo-property";
 let inMemoryCache: DemoProperty[] | null = null;
 export async function fetchDemoProperties(): Promise<DemoProperty[]> {
