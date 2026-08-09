@@ -1,22 +1,33 @@
-import { Navbar } from "@/components/shared/header/navbar/navbar";
-//import { Footer } from "@/components/shared/footer/footer";
+import type { Metadata } from "next";
+import { Geist } from "next/font/google";
 
-export default function MarketingLayout({
-children
-}:{
-children:React.ReactNode
-}){
+import "./globals.css";
+import { cn } from "@/lib/utils";
 
-return (
-<>
-<Navbar />
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
-<main>
-{children}
-</main>
+export const metadata: Metadata = {
+  title: {
+    default: "Wikendia",
+    template: "%s | Wikendia",
+  },
+  description:
+    "Book curated stays with a modern, professional booking experience.",
+};
 
-
-</>
-)
-
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" className={cn("font-sans", geist.variable)}>
+      <body className="antialiased">
+        {children}
+      </body>
+    </html>
+  );
 }

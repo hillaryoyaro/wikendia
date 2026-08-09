@@ -1,8 +1,11 @@
 import Link from "next/link";
-import { House } from "lucide-react";
 
 import { getCurrentUser } from "@/lib/auth/session";
 import { prisma } from "@/lib/prisma";
+
+import { Logo } from "./logo";
+import { NavLinks } from "./nav-links";
+import { UserMenu } from "./user-menu";
 
 export async function Navbar() {
   const user = await getCurrentUser();
@@ -19,9 +22,25 @@ export async function Navbar() {
     ? "Manage hosting"
     : "Start hosting";
 
+  const hostCtaHref = hasHostedListings
+    ? "/hosting/dashboard"
+    : "/hosting/listings/create";
+
   return (
-    <header className="w-full border-b border-ink-200 bg-surface">
+    <header
+      className="
+        sticky
+        top-0
+        z-50
+        w-full
+        border-b
+        border-ink-200
+        bg-surface/95
+        backdrop-blur
+      "
+    >
       <nav
+        aria-label="Primary navigation"
         className="
           mx-auto
           flex
@@ -29,37 +48,33 @@ export async function Navbar() {
           max-w-7xl
           items-center
           justify-between
+          gap-6
           px-4
           sm:px-6
           lg:px-8
         "
-        aria-label="Main navigation"
       >
-        {/* Logo */}
-        <Link
-          href="/"
-          className="
-            flex
-            items-center
-            gap-2
-            text-lg
-            font-bold
-            tracking-tight
-            text-brand-500
-          "
-        >
-          <House className="h-5 w-5" />
-          <span>Wikendia</span>
-        </Link>
+        {/* =====================================
+            LEFT
+            ===================================== */}
 
-        {/* Navigation */}
+        <div className="flex items-center gap-8">
+          <Logo />
+
+          <NavLinks />
+        </div>
+
+        {/* =====================================
+            RIGHT
+            ===================================== */}
+
         <div className="flex items-center gap-2">
           <Link
-            href="/host"
+            href={hostCtaHref}
             className="
               hidden
               rounded-full
-              px-3
+              px-4
               py-2
               text-sm
               font-semibold
@@ -71,6 +86,8 @@ export async function Navbar() {
           >
             {hostCtaLabel}
           </Link>
+
+          <UserMenu />
         </div>
       </nav>
     </header>
