@@ -12,9 +12,12 @@ export async function findUserByEmail(email: string) {
   });
 }
 
+//Create User
 export async function createUser(
   data: Omit<RegisterInput, "confirmPassword">
 ) {
+  const email = data.email.trim().toLowerCase();
+
   const hashedPassword = await bcrypt.hash(
     data.password,
     SALT_ROUNDS
@@ -22,8 +25,8 @@ export async function createUser(
 
   return prisma.user.create({
     data: {
-      name: data.name,
-      email: data.email,
+      name: data.name.trim(),
+      email,
       hashedPassword,
     },
   });
