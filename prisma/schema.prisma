@@ -1,3 +1,4 @@
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -6,21 +7,28 @@ datasource db {
   provider = "postgresql"
 }
 
+// User Model
 model User {
-  id             String    @id @default(cuid())
-  name           String?
-  email          String?   @unique
-  emailVerified  DateTime?
-  image          String?
-  hashedPassword String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-  accounts       Account[]
-  sessions       Session[]
-  listings       Listing[]
-  reservations   Reservation[]
+  id                 String    @id @default(cuid())
+  name               String?
+  email              String?   @unique
+  emailVerified      DateTime?
+  image              String?
+  hashedPassword     String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  // Authentication relationships
+  accounts           Account[]
+  sessions           Session[]
+  passwordResetTokens PasswordResetToken[]
+
+  // Wikendia relationships
+  listings           Listing[]
+  reservations       Reservation[]
 }
 
+// Account Model - Google OAuth and other providers
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -34,19 +42,23 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
 
+// Session Model
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
   userId       String
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+// VerificationToken Model - Email verification
 model VerificationToken {
   identifier String
   token      String   @unique
@@ -55,6 +67,21 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+// Password Reset Token Model
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// Listing Model
 model Listing {
   id              String        @id @default(cuid())
   title           String
@@ -70,10 +97,12 @@ model Listing {
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
   userId          String
+
   user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   reservations    Reservation[]
 }
 
+// Reservation Model
 model Reservation {
   id         String   @id @default(cuid())
   userId     String
