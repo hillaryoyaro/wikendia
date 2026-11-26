@@ -2,6 +2,7 @@ import { z } from "zod";
 
 const PASSWORD_MIN_LENGTH = 8;
 
+//Register Schema is the rule for the user to register with name, email, password and confirm password. Before it hit the database.
 export const registerSchema = z
   .object({
     name: z
@@ -34,6 +35,7 @@ export const registerSchema = z
     message: "Passwords do not match.",
   });
 
+  //Login Schema is the rule for the user to login with email and password. Before it hit the database.
 export const loginSchema = z.object({
   email: z
     .string()
@@ -54,6 +56,7 @@ export const forgotPasswordSchema = z.object({
     .email(),
 });
 
+//Reset Password Schema is the rule for the user to reset password with token, password and confirm password. Before it hit the database.
 export const resetPasswordSchema = z
   .object({
     token: z.string().min(1),
@@ -70,6 +73,7 @@ export const resetPasswordSchema = z
     message: "Passwords do not match.",
   });
 
+//Update Profile Schema is the rule for the user to update their profile with name and email. Before it hit the database.
 export const updateProfileSchema = z.object({
   name: z.string().trim().min(2).max(100),
 
@@ -80,6 +84,7 @@ export const updateProfileSchema = z.object({
     .email(),
 });
 
+//Change Password Schema
 export const changePasswordSchema = z
   .object({
     currentPassword: z.string(),
