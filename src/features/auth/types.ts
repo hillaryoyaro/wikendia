@@ -61,6 +61,13 @@ export type LoginState = AuthActionResponse & {
 
 export type ResetPasswordState = AuthActionResponse;
 
+/**
+ * ============================================================================
+ * Forgot Password State
+ * ============================================================================
+ */
+export type ForgotPasswordState = AuthActionResponse;
+
 
 
 /**
