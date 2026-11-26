@@ -1,8 +1,7 @@
-import * as PrismaPkg from "@prisma/client";
-const { PrismaClient } = PrismaPkg as unknown as { PrismaClient: typeof import("@prisma/client").PrismaClient };
+import { PrismaClient } from "@prisma/client";
 import { PrismaNeon } from "@prisma/adapter-neon";
 const globalForPrisma = globalThis as unknown as {
-    prisma: InstanceType<typeof PrismaClient> | undefined;
+    prisma: PrismaClient | undefined;
 };
 const connectionString = process.env.DATABASE_URL;
 if (!connectionString) {
